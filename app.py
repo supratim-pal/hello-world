@@ -46,16 +46,17 @@ class HttpWSSProtocol(websockets.WebSocketServerProtocol):
             googleRequestJson = json.loads(googleRequest)
 
             #{"location": "living", "state": "on", "device": "lights"}
-            if 'what' in googleRequestJson['result']['resolvedQuery']:
-                ESPparameters = googleRequestJson['result']['parameters']
+            if 'what' in googleRequestJson['queryResult']['queryText']:
+                ESPparameters = googleRequestJson['queryResult']['parameters']
                 ESPparameters['query'] = '?'
             else:
-                ESPparameters = googleRequestJson['result']['parameters']
+                ESPparameters = googleRequestJson['queryResult']['parameters']
                 ESPparameters['query'] = 'cmd'
             # send command to ESP over websocket
             if self.rwebsocket== None:
                 print("Device is not connected!")
                 return
+            print(ESPparameters)
             await self.rwebsocket.send(json.dumps(ESPparameters))
 
             #wait for response and send it back to API.ai as is
