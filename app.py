@@ -62,7 +62,7 @@ class HttpWSSProtocol(websockets.WebSocketServerProtocol):
             self.rddata = await self.rwebsocket.recv()
             #{"speech": "It is working", "displayText": "It is working"}
             print(self.rddata)
-            state = json.loads(self.rddata)['state']
+            #state = json.loads(self.rddata)['state']
             #self.rddata = '{"speech": "It is turned '+state+'", "displayText": "It is turned '+state+'"}'
             self.rddata = '{"fulfillmentText": "It is turned on, yes"}'
 
@@ -73,6 +73,7 @@ class HttpWSSProtocol(websockets.WebSocketServerProtocol):
                 ''+self.rddata+'',
             ])
         except Exception as e:
+            print("here")
             print(e)
         self.writer.write(response.encode())
 
