@@ -41,19 +41,19 @@ class HttpWSSProtocol(websockets.WebSocketServerProtocol):
         response = ''
         try:
 
-            #s googleRequest = self.reader._buffer.decode('utf-8')
+            googleRequest = self.reader._buffer.decode('utf-8')
             #s googleRequest = googleRequest.replace("\'", "\"")
-            #s googleRequestJson = json.loads(googleRequest)
+            googleRequestJson = json.loads(googleRequest)
 
             #{"location": "living", "state": "on", "device": "lights"}
-            #s if 'what' in googleRequestJson['queryResult']['queryText']:
-            #s     ESPparameters = googleRequestJson['queryResult']['parameters']
-            #s     ESPparameters['query'] = '?'
-            #s else:
-            #s     ESPparameters = googleRequestJson['queryResult']['parameters']
-            #s     ESPparameters['query'] = 'cmd'
+            if 'what' in googleRequestJson['queryResult']['queryText']:
+                ESPparameters = googleRequestJson['queryResult']['parameters']
+                ESPparameters['query'] = '?'
+            else:
+                ESPparameters = googleRequestJson['queryResult']['parameters']
+                ESPparameters['query'] = 'cmd'
             # send command to ESP over websocket
-            #s print(ESPparameters)
+            print(ESPparameters)
             if self.rwebsocket== None:
                 print("Device is not connected!")
                 return
