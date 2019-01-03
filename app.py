@@ -41,28 +41,28 @@ class HttpWSSProtocol(websockets.WebSocketServerProtocol):
         response = ''
         try:
 
-            googleRequest = self.reader._buffer.decode('utf-8')
-            googleRequest = googleRequest.replace("\'", "\"")
-            googleRequestJson = json.loads(googleRequest)
+            #s googleRequest = self.reader._buffer.decode('utf-8')
+            #s googleRequest = googleRequest.replace("\'", "\"")
+            #s googleRequestJson = json.loads(googleRequest)
 
             #{"location": "living", "state": "on", "device": "lights"}
-            if 'what' in googleRequestJson['queryResult']['queryText']:
-                ESPparameters = googleRequestJson['queryResult']['parameters']
-                ESPparameters['query'] = '?'
-            else:
-                ESPparameters = googleRequestJson['queryResult']['parameters']
-                ESPparameters['query'] = 'cmd'
+            #s if 'what' in googleRequestJson['queryResult']['queryText']:
+            #s     ESPparameters = googleRequestJson['queryResult']['parameters']
+            #s     ESPparameters['query'] = '?'
+            #s else:
+            #s     ESPparameters = googleRequestJson['queryResult']['parameters']
+            #s     ESPparameters['query'] = 'cmd'
             # send command to ESP over websocket
-            print(ESPparameters)
+            #s print(ESPparameters)
             if self.rwebsocket== None:
                 print("Device is not connected!")
                 return
-            await self.rwebsocket.send(json.dumps(ESPparameters))
+            #s await self.rwebsocket.send(json.dumps(ESPparameters))
 
             #wait for response and send it back to API.ai as is
-            self.rddata = await self.rwebsocket.recv()
+            #s self.rddata = await self.rwebsocket.recv()
             #{"speech": "It is working", "displayText": "It is working"}
-            print(self.rddata)
+            #s print(self.rddata)
             #state = json.loads(self.rddata)['state']
             #self.rddata = '{"speech": "It is turned '+state+'", "displayText": "It is turned '+state+'"}'
             self.rddata = '{"fulfillmentText": "It is turned on, yes"}'
