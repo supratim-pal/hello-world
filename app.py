@@ -1,6 +1,6 @@
 import websockets
 import asyncio
-import json
+import ast, json
 import time, os
 
 class HttpWSSProtocol(websockets.WebSocketServerProtocol):
@@ -42,6 +42,7 @@ class HttpWSSProtocol(websockets.WebSocketServerProtocol):
         try:
 
             googleRequest = self.reader._buffer.decode('utf-8')
+            googleRequest = ast.literal_eval(googleRequest)
             googleRequestJson = json.loads(googleRequest)
 
             #{"location": "living", "state": "on", "device": "lights"}
