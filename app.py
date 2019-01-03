@@ -57,10 +57,10 @@ class HttpWSSProtocol(websockets.WebSocketServerProtocol):
             if self.rwebsocket== None:
                 print("Device is not connected!")
                 return
-            #s await self.rwebsocket.send(json.dumps(ESPparameters))
+            await self.rwebsocket.send(json.dumps(ESPparameters))
 
             #wait for response and send it back to API.ai as is
-            #s self.rddata = await self.rwebsocket.recv()
+            self.rddata = await self.rwebsocket.recv()
             #{"speech": "It is working", "displayText": "It is working"}
             #s print(self.rddata)
             #state = json.loads(self.rddata)['state']
